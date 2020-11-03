@@ -1,8 +1,8 @@
-package com.opsat7373.moviestars.ViewModel
+package com.opsat7373.moviestars.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.opsat7373.moviestars.model.Movie
+import com.opsat7373.moviestars.data.model.Movie
 
 class MoviesListViewModel : ViewModel() {
     val moviesList = MutableLiveData<Array<Movie?>>()

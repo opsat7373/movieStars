@@ -1,4 +1,4 @@
-package com.opsat7373.moviestars.fragment
+package com.opsat7373.moviestars.presentation.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.opsat7373.moviestars.ViewModel.MoviesListViewModel
+import com.opsat7373.moviestars.presentation.viewmodel.MoviesListViewModel
 import com.opsat7373.moviestars.adapters.MovieItemAdapter
 import com.opsat7373.moviestars.databinding.FragmentMoviesListFramgentBinding
 

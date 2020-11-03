@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.opsat7373.moviestars.R
 import com.opsat7373.moviestars.databinding.MovieItemBinding
-import com.opsat7373.moviestars.model.Movie
+import com.opsat7373.moviestars.data.model.Movie
 
 class MovieItemAdapter(moviesList : Array<Movie?>?) : RecyclerView.Adapter<MovieItemAdapter.MovieItemViewHolder>() {
     var moviesList : Array<Movie?>
