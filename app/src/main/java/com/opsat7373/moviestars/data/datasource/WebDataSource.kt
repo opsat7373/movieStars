@@ -1,0 +1,39 @@
+package com.opsat7373.moviestars.data.datasource
+
+import androidx.lifecycle.MutableLiveData
+import com.opsat7373.moviestars.data.model.Movie
+import com.opsat7373.moviestars.data.model.PopularMoviesList
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
+
+
+class WebDataSource : MovieDataSourceInterface {
+    override fun getAll(): MutableLiveData<List<Movie?>> {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.themoviedb.org/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(TMDBService::class.java)
+        val request: Call<PopularMoviesList> = service.getPopularList()
+
+
+        var data :  MutableLiveData<List<Movie?>> =  MutableLiveData<List<Movie?>>()
+        request.enqueue(object : Callback<PopularMoviesList> {
+            override fun onResponse(call: Call<PopularMoviesList>?,
+                           response: Response<PopularMoviesList>) {
+                if (response.isSuccessful()) {
+                    data.value = response.body()?.results ?: LinkedList<Movie>()
+                }
+            }
+
+            override fun onFailure(call: Call<PopularMoviesList>?, t: Throwable?) {
+                data.value = LinkedList<Movie>()
+            }
+        })
+        return data
+    }
+}

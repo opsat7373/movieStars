@@ -2,7 +2,7 @@ package com.opsat7373.moviestars.data.model
 private val moviesList : Array<String> =  arrayOf("Die hard 1" , "2012", "Star wars")
 private val moviesList2 : Array<String> =  arrayOf("Die hard 2" , "2012 2", "Star wars 2")
 
-data class Movie(val movieName : String) {
+data class Movie(val original_title : String) {
     companion object {
         fun getMoviesList() : Array<Movie?> {
             val moviesArray : Array<Movie?> = arrayOfNulls(moviesList.size)
