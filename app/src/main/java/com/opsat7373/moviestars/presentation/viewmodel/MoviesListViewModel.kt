@@ -1,18 +1,25 @@
 package com.opsat7373.moviestars.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.opsat7373.moviestars.data.model.Movie
 import com.opsat7373.moviestars.data.repository.MovieRepository
+import java.util.*
 
 class MoviesListViewModel : ViewModel() {
-    var moviesList = MutableLiveData<List<Movie?>>()
+    private var moviesList : LiveData<List<Movie>> = MutableLiveData()
 
-    fun loadMoviesList() {
+    fun initList() : List<Movie> {
         moviesList = MovieRepository().getMoviesList()
+        return this.getList()
     }
 
-    fun refreshList() {
-        moviesList  = MovieRepository().getMoviesList()
+    fun getList() : List<Movie> {
+        return moviesList.value ?: LinkedList()
+    }
+
+    fun getLiveData() : LiveData<List<Movie>> {
+        return moviesList
     }
 }

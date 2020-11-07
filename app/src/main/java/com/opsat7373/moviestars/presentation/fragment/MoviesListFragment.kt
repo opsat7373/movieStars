@@ -37,17 +37,14 @@ class MoviesListFragment : Fragment() {
         viewBinding = FragmentMoviesListFramgentBinding.inflate(layoutInflater)
 
         val linearLayoutManager = LinearLayoutManager(activity)
-        moviesListViewModel.loadMoviesList()
-        val viewAdapter = MovieItemAdapter(moviesListViewModel.moviesList.value)
+        moviesListViewModel.initList()
+        val viewAdapter = MovieItemAdapter()
+        viewAdapter.setList(moviesListViewModel.getList())
 
-        moviesListViewModel.moviesList.observe(viewLifecycleOwner, Observer {
-            viewAdapter.setList(moviesListViewModel.moviesList.value)
+        moviesListViewModel.getLiveData().observe(viewLifecycleOwner, Observer {
+            viewAdapter.setList(moviesListViewModel.getList())
             viewAdapter.notifyDataSetChanged()
         })
-
-        viewBinding.button.setOnClickListener {
-            moviesListViewModel.refreshList()
-        }
 
         viewBinding.moviesListRecyclerView.apply{
             layoutManager = linearLayoutManager

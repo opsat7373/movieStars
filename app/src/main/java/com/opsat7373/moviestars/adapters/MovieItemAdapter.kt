@@ -9,15 +9,15 @@ import com.opsat7373.moviestars.databinding.MovieItemBinding
 import com.opsat7373.moviestars.data.model.Movie
 import java.util.*
 
-class MovieItemAdapter(moviesList : List<Movie?>?) : RecyclerView.Adapter<MovieItemAdapter.MovieItemViewHolder>() {
-    var moviesList : List<Movie?>
+class MovieItemAdapter() : RecyclerView.Adapter<MovieItemAdapter.MovieItemViewHolder>() {
+    var moviesList : List<Movie>
 
-    fun setList(moviesList : List<Movie?>?) {
-        this.moviesList = moviesList ?: LinkedList<Movie>()
+    fun setList(moviesList : List<Movie>) {
+        this.moviesList = moviesList
     }
 
     init {
-        this.moviesList = moviesList ?: LinkedList<Movie>()
+        this.moviesList = LinkedList<Movie>()
     }
 
     class MovieItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -30,12 +30,10 @@ class MovieItemAdapter(moviesList : List<Movie?>?) : RecyclerView.Adapter<MovieI
     }
 
     override fun onBindViewHolder(holder: MovieItemViewHolder, position: Int) {
-        holder.binding.movieName.text = moviesList[position]?.original_title.toString()
-        println("position : ${position.toString()}")
+        holder.binding.movieName.text = moviesList[position].original_title
     }
 
     override fun getItemCount(): Int {
-        println(moviesList.size)
         return moviesList.size
     }
 }
