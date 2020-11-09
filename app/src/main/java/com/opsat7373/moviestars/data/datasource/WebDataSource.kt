@@ -12,20 +12,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
-class WebDataSource : MovieDataSourceInterface {
+class WebDataSource(val client : Retrofit) : MovieDataSourceInterface {
 
-    private var service : TMDBService
-
-    init {
-        val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        service = retrofit.create(TMDBService::class.java)
-    }
-
-    override fun getAll(): LiveData<List<Movie>> {
-
+    override fun getAll(): MutableLiveData<List<Movie>> {
+        val service = client.create(TMDBService::class.java)
         val request: Call<PopularMoviesList> = service.getPopularList()
         val data :  MutableLiveData<List<Movie>> =  MutableLiveData<List<Movie>>()
         request.enqueue(object : Callback<PopularMoviesList> {

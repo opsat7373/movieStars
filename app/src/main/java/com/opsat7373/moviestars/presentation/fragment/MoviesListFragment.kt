@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.opsat7373.moviestars.presentation.viewmodel.MoviesListViewModel
 import com.opsat7373.moviestars.adapters.MovieItemAdapter
+import com.opsat7373.moviestars.data.model.Movie
 import com.opsat7373.moviestars.databinding.FragmentMoviesListFramgentBinding
+import java.util.*
 
 private lateinit var viewBinding : FragmentMoviesListFramgentBinding
 
@@ -39,10 +41,8 @@ class MoviesListFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         moviesListViewModel.initList()
         val viewAdapter = MovieItemAdapter()
-        viewAdapter.setList(moviesListViewModel.getList())
-
-        moviesListViewModel.getLiveData().observe(viewLifecycleOwner, Observer {
-            viewAdapter.setList(moviesListViewModel.getList())
+        moviesListViewModel.moviesList.observe(viewLifecycleOwner, Observer {
+            viewAdapter.setList(moviesListViewModel.moviesList.value ?: LinkedList<Movie>())
             viewAdapter.notifyDataSetChanged()
         })
 

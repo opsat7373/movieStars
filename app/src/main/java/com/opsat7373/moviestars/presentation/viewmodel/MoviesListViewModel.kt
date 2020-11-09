@@ -8,18 +8,13 @@ import com.opsat7373.moviestars.data.repository.MovieRepository
 import java.util.*
 
 class MoviesListViewModel : ViewModel() {
-    private var moviesList : LiveData<List<Movie>> = MutableLiveData()
+    private var _moviesList : MutableLiveData<List<Movie>> = MutableLiveData()
 
-    fun initList() : List<Movie> {
-        moviesList = MovieRepository().getMoviesList()
-        return this.getList()
-    }
+    public val moviesList : LiveData<List<Movie>>
+    get() = _moviesList
 
-    fun getList() : List<Movie> {
-        return moviesList.value ?: LinkedList()
-    }
-
-    fun getLiveData() : LiveData<List<Movie>> {
+    fun initList() : LiveData<List<Movie>> {
+        _moviesList = MovieRepository().getMoviesList()
         return moviesList
     }
 }
