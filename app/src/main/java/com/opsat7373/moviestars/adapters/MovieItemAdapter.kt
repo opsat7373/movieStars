@@ -30,7 +30,10 @@ class MovieItemAdapter() : RecyclerView.Adapter<MovieItemAdapter.MovieItemViewHo
     }
 
     override fun onBindViewHolder(holder: MovieItemViewHolder, position: Int) {
-        holder.binding.movieName.text = moviesList[position].original_title
+        holder.binding.apply {
+            movieName.text = moviesList[position].original_title
+            imageView.setImageBitmap(moviesList[position].poster)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -1,4 +1,7 @@
 package com.opsat7373.moviestars.data.model
 
-data class Movie(val original_title : String) {
+import android.graphics.Bitmap
+
+data class Movie(val original_title : String, val poster_path : String) {
+    var poster : Bitmap? = null
 }

@@ -46,6 +46,10 @@ class MoviesListFragment : Fragment() {
             viewAdapter.notifyDataSetChanged()
         })
 
+        moviesListViewModel.bitmap.observe(viewLifecycleOwner, {
+            viewBinding.testView.setImageBitmap(moviesListViewModel.bitmap.value)
+        })
+
         viewBinding.moviesListRecyclerView.apply{
             layoutManager = linearLayoutManager
             adapter = viewAdapter
