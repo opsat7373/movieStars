@@ -12,4 +12,8 @@ class WebDataSource(val client : Retrofit, val imageClient : Retrofit) : MovieDa
     override fun getPopularList(): Single<PopularMoviesList> {
         return client.create(TMDBService::class.java).getMoviesList()
     }
+
+    override fun getMoviePoster(path : String): Single<ResponseBody> {
+        return imageClient.create(TMDBImageService::class.java).getMoviePoster(path)
+    }
 }

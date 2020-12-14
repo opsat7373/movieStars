@@ -7,4 +7,6 @@ import okhttp3.ResponseBody
 
 interface MovieDataSourceInterface {
     fun getPopularList() : Single<PopularMoviesList>
+
+    fun getMoviePoster(path : String) : Single<ResponseBody>
 }
