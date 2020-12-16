@@ -11,16 +11,7 @@ class RetrofitClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    private val imageRetrofitClient : Retrofit = Retrofit.Builder()
-        .baseUrl("https://image.tmdb.org/")
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .build()
-
     fun getClient (): Retrofit {
         return retrofitClient
-    }
-
-    fun getImageClient (): Retrofit {
-        return imageRetrofitClient
     }
 }

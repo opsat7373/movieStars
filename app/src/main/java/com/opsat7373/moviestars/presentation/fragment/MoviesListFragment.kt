@@ -23,7 +23,7 @@ private lateinit var viewBinding : FragmentMoviesListFramgentBinding
  */
 class MoviesListFragment : Fragment() {
 
-    lateinit var moviesListViewModel : MoviesListViewModel
+    private lateinit var moviesListViewModel : MoviesListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +41,9 @@ class MoviesListFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         moviesListViewModel.initList()
         val viewAdapter = MovieItemAdapter()
-        moviesListViewModel.moviesList.observe(viewLifecycleOwner, Observer {
+        moviesListViewModel.moviesList.observe(viewLifecycleOwner, {
             viewAdapter.setList(moviesListViewModel.moviesList.value ?: LinkedList<Movie>())
             viewAdapter.notifyDataSetChanged()
-        })
-
-        moviesListViewModel.bitmap.observe(viewLifecycleOwner, {
-            viewBinding.testView.setImageBitmap(moviesListViewModel.bitmap.value)
         })
 
         viewBinding.moviesListRecyclerView.apply{
