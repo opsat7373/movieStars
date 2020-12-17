@@ -1,6 +1,7 @@
 package com.opsat7373.moviestars.data.repository
 
 import com.opsat7373.moviestars.data.datasource.remote.RetrofitClient
+import com.opsat7373.moviestars.data.datasource.remote.TMDB_IMAGE_API_POSTER_URL
 import com.opsat7373.moviestars.data.datasource.remote.WebDataSource
 import com.opsat7373.moviestars.data.model.Movie
 import com.opsat7373.moviestars.domain.MovieRepositoryInterface
@@ -14,6 +15,11 @@ class MovieRepository : MovieRepositoryInterface {
         return remoteMovieDataSource.getPopularList()
             .toObservable()
             .flatMapIterable { movies -> movies.results }
+            .map{movie ->
+                movie.apply{
+                    posterUrl =  "${TMDB_IMAGE_API_POSTER_URL}${movie.poster_path}"
+                }
+            }
             .toList()
     }
 }

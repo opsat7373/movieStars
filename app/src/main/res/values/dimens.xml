@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="movies_list_text_size">24sp</dimen>
+    <dimen name="movie_poster_widht">0dp</dimen>
+    <dimen name="movie_poster_height">520dp</dimen>
+    <dimen name="movie_poster_margin">32dp</dimen>
 </resources>

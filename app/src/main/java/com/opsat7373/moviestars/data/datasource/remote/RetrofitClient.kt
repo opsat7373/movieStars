@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitClient {
     private val retrofitClient : Retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/")
+            .baseUrl(TMDB_API_URL)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
