@@ -4,5 +4,5 @@ import com.opsat7373.moviestars.data.model.Movie
 import io.reactivex.rxjava3.core.Single
 
 interface MovieRepositoryInterface {
-    fun getPopularMoviesList() : Single<List<Movie>>
+    fun getPopularMoviesList(page : Int) : Single<List<Movie>>
 }

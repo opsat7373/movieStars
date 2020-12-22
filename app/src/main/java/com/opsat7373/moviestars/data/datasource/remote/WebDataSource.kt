@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 
 class WebDataSource(private val client : Retrofit) : MovieDataSourceInterface {
 
-    override fun getPopularList(): Single<PopularMoviesList> {
-        return client.create(TMDBService::class.java).getMoviesList()
+    override fun getPopularList(page : Int): Single<PopularMoviesList> {
+        return client.create(TMDBService::class.java).getMoviesList(page)
     }
 }

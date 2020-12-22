@@ -6,14 +6,16 @@ import com.opsat7373.moviestars.data.datasource.remote.WebDataSource
 import com.opsat7373.moviestars.data.model.Movie
 import com.opsat7373.moviestars.domain.MovieRepositoryInterface
 import io.reactivex.rxjava3.core.Single
+import java.util.concurrent.TimeUnit
 
 class MovieRepository : MovieRepositoryInterface {
     private val retrofitClient = RetrofitClient().getClient()
     private val remoteMovieDataSource = WebDataSource(retrofitClient)
 
-    override fun getPopularMoviesList(): Single<List<Movie>> {
-        return remoteMovieDataSource.getPopularList()
+    override fun getPopularMoviesList(page : Int): Single<List<Movie>> {
+        return remoteMovieDataSource.getPopularList(page)
             .toObservable()
+            .delay(1000, TimeUnit.MILLISECONDS)
             .flatMapIterable { movies -> movies.results }
             .map{movie ->
                 movie.apply{
