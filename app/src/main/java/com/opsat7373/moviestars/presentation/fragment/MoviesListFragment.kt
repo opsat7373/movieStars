@@ -27,10 +27,6 @@ class MoviesListFragment : Fragment() {
 
     private lateinit var moviesListViewModel : MoviesListViewModel
 
-    private var page : Int = 1
-
-    private val isLoading : ObservableBoolean = ObservableBoolean(false)
-
     private var listEndingObserver : DisposableObserver<Int>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +44,6 @@ class MoviesListFragment : Fragment() {
         moviesListViewModel.loadList()
         val viewAdapter = MovieItemAdapter()
 
-        viewBinding.isLoading = isLoading
 
         viewBinding.moviesListRecyclerView.apply{
             layoutManager = linearLayoutManager
@@ -56,7 +51,6 @@ class MoviesListFragment : Fragment() {
         }
 
         moviesListViewModel.isLoading.observe(viewLifecycleOwner, { loading ->
-            isLoading.set(loading)
             if (!loading) {
                 subscribeListEndingObserver()
             }
@@ -74,7 +68,7 @@ class MoviesListFragment : Fragment() {
         listEndingObserver = object : DisposableObserver<Int>() {
             override fun onNext(t: Int?) {
                 listEndingObserver?.dispose()
-                moviesListViewModel.loadList(page++)
+                moviesListViewModel.loadList()
             }
 
             override fun onError(e: Throwable?) {

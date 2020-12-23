@@ -10,6 +10,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
 class MoviesListViewModel : ViewModel() {
+
+    private var page : Int = 1
+
     private var _moviesList: MutableLiveData<List<Movie>> = MutableLiveData(LinkedList<Movie>())
 
     private var _isLoading : MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
@@ -20,9 +23,9 @@ class MoviesListViewModel : ViewModel() {
     val isLoading : LiveData<Boolean>
         get() = _isLoading
 
-    fun loadList(page : Int = 1): LiveData<List<Movie>> {
+    fun loadList(): LiveData<List<Movie>> {
         _isLoading.value = true
-        MovieRepository().getPopularMoviesList(page)
+        MovieRepository().getPopularMoviesList(page++)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe { result ->
                 _moviesList.value = _moviesList.value?.plus(result)

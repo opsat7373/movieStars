@@ -52,7 +52,6 @@ class MovieItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when (holder) {
             is MovieItemViewHolder -> {
                 holder.binding.movieItem = moviesList[position]
-                holder.binding.position = position
             }
         }
     }
