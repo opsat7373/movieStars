@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.opsat7373.moviestars.data.model.Movie"/>
+        <import type="android.view.View"/>
+        <variable
+            name="movieItem"
+            type="androidx.lifecycle.LiveData&lt;Movie>" />
+        <variable
+            name="isLoading"
+            type="androidx.databinding.ObservableBoolean" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".presentation.fragment.MovieDetailsFragment">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/movie_poster_widht"
+            android:layout_height="@dimen/movie_poster_height"
+            android:layout_marginStart="@dimen/movie_poster_margin"
+            android:layout_marginEnd="@dimen/movie_poster_margin"
+            android:contentDescription="@string/moviePosterDescription"
+            android:scaleType="fitXY"
+            android:imageUrl="@{movieItem.posterUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/movie_title" />
+
+        <TextView
+            android:id="@+id/movie_name"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:textAlignment="center"
+            android:textSize="@dimen/movies_list_text_size"
+            android:text="@{movieItem.original_title}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <TextView
+            android:id="@+id/movie_description"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:textAlignment="center"
+            android:textSize="@dimen/movies_list_text_size"
+            android:text="@{movieItem.overview}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_name" />
+        <TextView
+            android:id="@+id/movie_runtime"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:textAlignment="center"
+            android:textSize="@dimen/movies_list_text_size"
+            android:text="@{String.valueOf(movieItem.runtime)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_description" />
+
+        <TextView
+            android:id="@+id/movie_rating"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@{movieItem.vote_average}"
+            android:textAlignment="center"
+            android:textSize="@dimen/movies_list_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_runtime" />
+        <TextView
+            android:id="@+id/movie_votes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="@dimen/movies_list_text_size"
+            android:text="@{String.valueOf(movieItem.vote_count)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_rating" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

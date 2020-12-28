@@ -3,10 +3,13 @@ package com.opsat7373.moviestars.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableInt
 import androidx.recyclerview.widget.RecyclerView
 import com.opsat7373.moviestars.R
 import com.opsat7373.moviestars.data.model.Movie
 import com.opsat7373.moviestars.databinding.MovieItemBinding
+import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.*
 
 const val MOVIE_ITEM_TYPE = 1
@@ -14,6 +17,12 @@ const val LOADER_ITEM_TYPE = 2
 
 class MovieItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var moviesList : LinkedList<Movie?>
+
+    private val onClickObservable : PublishSubject<Movie> = PublishSubject.create()
+
+    var selectedItem : ObservableInt = ObservableInt(0)
+
+    var highlightSelected : ObservableBoolean = ObservableBoolean(false)
 
     fun setList(moviesList: List<Movie>) {
         this.moviesList  = LinkedList<Movie?>(moviesList)
@@ -52,6 +61,11 @@ class MovieItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when (holder) {
             is MovieItemViewHolder -> {
                 holder.binding.movieItem = moviesList[position]
+                holder.binding.selectedItem = selectedItem
+                holder.binding.highlightSelected = highlightSelected
+                holder.itemView.setOnClickListener(View.OnClickListener {
+                    onClickObservable.onNext(moviesList[position])
+                })
             }
         }
     }
@@ -65,5 +79,13 @@ class MovieItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             return LOADER_ITEM_TYPE
         }
         return MOVIE_ITEM_TYPE
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    fun getOnClickObservable(): PublishSubject<Movie> {
+        return onClickObservable
     }
 }

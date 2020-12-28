@@ -6,10 +6,17 @@
         <variable
             name="movieItem"
             type="com.opsat7373.moviestars.data.model.Movie" />
+        <variable
+            name="selectedItem"
+            type="androidx.databinding.ObservableInt" />
+        <variable
+            name="highlightSelected"
+            type="androidx.databinding.ObservableBoolean" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@{(highlightSelected &amp;&amp;  (movieItem.id == selectedItem) ) ? @color/purple_500 : @color/white}">
 
         <ImageView
             android:id="@+id/imageView"
@@ -47,7 +54,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_name" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
