@@ -1,5 +1,6 @@
 package com.opsat7373.moviestars.presentation.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -45,8 +46,12 @@ class MoviesListFragment : Fragment() {
                 parentFragmentManager.getBackStackEntryAt(i).toString()
             )
         }
-        navigator = Navigator(fragmentManager = parentFragmentManager)
         moviesListViewModel = ViewModelProvider(this).get(MoviesListViewModel::class.java)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        navigator = Navigator(fragmentManager = parentFragmentManager)
     }
 
     override fun onCreateView(
@@ -89,7 +94,7 @@ class MoviesListFragment : Fragment() {
                         navigator.navigateToMovieDetails(event.movie.id)
                     }
                     is FirstMovieLoadedEvent -> {
-                        navigator.navigateToMovieDetails(event.movie.id)
+                        navigator.navigateToMovieDetails(event.movie.id, isFirstMovie = true)
                     }
                 }
             }

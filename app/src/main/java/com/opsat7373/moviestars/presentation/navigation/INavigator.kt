@@ -8,18 +8,18 @@ import com.opsat7373.moviestars.R
 import com.opsat7373.moviestars.presentation.fragment.MovieDetailsFragment
 
 interface INavigator {
-    fun navigateToMovieDetails(movieId: Int)
+    fun navigateToMovieDetails(movieId: Int, isFirstMovie : Boolean = false)
 }
 
 class Navigator(private val fragmentManager: FragmentManager) : INavigator {
-    override fun navigateToMovieDetails(movieId: Int) {
+    override fun navigateToMovieDetails(movieId: Int, isFirstMovie : Boolean) {
         var detailsFragment : MovieDetailsFragment? = null
         detailsFragment =
             fragmentManager.findFragmentById(R.id.movie_details_fragment) as MovieDetailsFragment?
         val isTwoPanelMode = detailsFragment != null
         if (isTwoPanelMode) {
             detailsFragment?.loadMovie(movieId)
-        } else {
+        } else if (!isFirstMovie) {
             val args = Bundle()
             args.putInt("movieId", movieId)
             fragmentManager.commit {
