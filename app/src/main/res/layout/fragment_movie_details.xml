@@ -35,10 +35,10 @@
         <TextView
             android:id="@+id/movie_name"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/movie_title_height"
             android:textAlignment="center"
             android:textSize="@dimen/movies_list_text_size"
-            android:text="@{movieItem.original_title}"
+            android:text="@{movieItem.originalTitle}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
         <TextView
@@ -64,7 +64,7 @@
             android:id="@+id/movie_rating"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="@{movieItem.vote_average}"
+            android:text="@{movieItem.voteAverage}"
             android:textAlignment="center"
             android:textSize="@dimen/movies_list_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="@dimen/movies_list_text_size"
-            android:text="@{String.valueOf(movieItem.vote_count)}"
+            android:text="@{String.valueOf(movieItem.voteCount)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_rating" />

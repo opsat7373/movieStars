@@ -15,6 +15,8 @@ import com.opsat7373.moviestars.data.model.Movie
 import com.opsat7373.moviestars.databinding.FragmentMoviesListFramgentBinding
 import com.opsat7373.moviestars.events.FirstMovieLoadedEvent
 import com.opsat7373.moviestars.events.MovieSelectedEvent
+import com.opsat7373.moviestars.presentation.navigation.INavigator
+import com.opsat7373.moviestars.presentation.navigation.Navigator
 import io.reactivex.rxjava3.observers.DisposableObserver
 import java.util.*
 import kotlin.reflect.cast
@@ -34,18 +36,16 @@ class MoviesListFragment : Fragment() {
 
     private var isTwoPanelMode  = false
 
-    private var detailsFragment : Fragment? = null
+    private lateinit var navigator: INavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        parentFragmentManager.addOnBackStackChangedListener(
-            object : FragmentManager.OnBackStackChangedListener {
-                override fun onBackStackChanged() {
-                    for (i in 0 until parentFragmentManager.backStackEntryCount) println(
-                        parentFragmentManager.getBackStackEntryAt(i).toString()
-                    )
-                }
-            })
+        parentFragmentManager.addOnBackStackChangedListener {
+            for (i in 0 until parentFragmentManager.backStackEntryCount) println(
+                parentFragmentManager.getBackStackEntryAt(i).toString()
+            )
+        }
+        navigator = Navigator(fragmentManager = parentFragmentManager)
         moviesListViewModel = ViewModelProvider(this).get(MoviesListViewModel::class.java)
     }
 
@@ -86,30 +86,15 @@ class MoviesListFragment : Fragment() {
             eventBus.subscribe{event ->
                 when (event) {
                     is MovieSelectedEvent -> {
-                        if (isTwoPanelMode) {
-                            MovieDetailsFragment::class.cast(detailsFragment).loadMovie(event.movie.id)
-                        } else {
-
-                            val args : Bundle = Bundle()
-                            args.putInt("movieId", event.movie.id)
-                            parentFragmentManager.commit {
-                                add<MovieDetailsFragment>(R.id.movies_list_fragment, args = args)
-                                addToBackStack(null)
-                            }
-                        }
+                        navigator.navigateToMovieDetails(event.movie.id)
                     }
                     is FirstMovieLoadedEvent -> {
-                        if (isTwoPanelMode) {
-                            MovieDetailsFragment::class.cast(detailsFragment).loadMovie(event.movie.id)
-                        }
+                        navigator.navigateToMovieDetails(event.movie.id)
                     }
                 }
             }
         }
 
-        detailsFragment =
-            parentFragmentManager.findFragmentById(R.id.movie_details_fragment)
-        isTwoPanelMode = detailsFragment != null
         viewAdapter.highlightSelected.set(isTwoPanelMode)
 
         return viewBinding.root

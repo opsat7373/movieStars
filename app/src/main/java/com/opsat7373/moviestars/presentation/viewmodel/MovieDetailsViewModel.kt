@@ -14,10 +14,8 @@ class MovieDetailsViewModel : ViewModel() {
 
     private var _isLoading : MutableLiveData<Boolean> = MutableLiveData<Boolean>(true)
 
-    val movieItem : LiveData<Movie?>
-        get() = _movieItem
-    val isLoading : LiveData<Boolean>
-        get() = _isLoading
+    val movieItem : LiveData<Movie?> = _movieItem
+    val isLoading : LiveData<Boolean> = _isLoading
 
     fun loadMovie(movieId : Int): LiveData<Movie?> {
         _isLoading.value = true

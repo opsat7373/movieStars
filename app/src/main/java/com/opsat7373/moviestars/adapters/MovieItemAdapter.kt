@@ -12,9 +12,6 @@ import com.opsat7373.moviestars.databinding.MovieItemBinding
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.*
 
-const val MOVIE_ITEM_TYPE = 1
-const val LOADER_ITEM_TYPE = 2
-
 class MovieItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var moviesList : LinkedList<Movie?>
 
@@ -31,6 +28,10 @@ class MovieItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class MovieItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val binding : MovieItemBinding = MovieItemBinding.bind(itemView)
+
+        fun setMovieItem (item : Movie?) {
+            binding.movieItem = item
+        }
     }
 
     class ProgressBar(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -60,7 +61,7 @@ class MovieItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MovieItemViewHolder -> {
-                holder.binding.movieItem = moviesList[position]
+               holder.setMovieItem(moviesList[position])
                 holder.binding.selectedItem = selectedItem
                 holder.binding.highlightSelected = highlightSelected
                 holder.itemView.setOnClickListener(View.OnClickListener {
@@ -87,5 +88,10 @@ class MovieItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun getOnClickObservable(): PublishSubject<Movie> {
         return onClickObservable
+    }
+
+    companion object {
+       private const val MOVIE_ITEM_TYPE = 1
+       private const val LOADER_ITEM_TYPE = 2
     }
 }

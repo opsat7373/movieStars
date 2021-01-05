@@ -39,7 +39,7 @@
             android:layout_height="32dp"
             android:textAlignment="center"
             android:textSize="@dimen/movies_list_text_size"
-            android:text="@{movieItem.original_title}"
+            android:text="@{movieItem.originalTitle}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -50,7 +50,7 @@
             android:layout_marginBottom="32dp"
             android:textAlignment="center"
             android:textSize="@dimen/movies_list_text_size"
-            android:text="@{movieItem.vote_average}"
+            android:text="@{movieItem.voteAverage}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_name" />

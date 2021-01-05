@@ -6,4 +6,5 @@
     <dimen name="movie_poster_margin">100dp</dimen>
 
     <dimen name="progress_spinner_size">100dp</dimen>
+    <dimen name="movie_title_height">32dp</dimen>
 </resources>

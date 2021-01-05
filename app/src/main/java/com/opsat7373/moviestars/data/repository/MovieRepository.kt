@@ -16,11 +16,10 @@ class MovieRepository : MovieRepositoryInterface {
     override fun getPopularMoviesList(page : Int): Single<List<Movie>> {
         return remoteMovieDataSource.getPopularList(page)
             .toObservable()
-            .delay(1000, TimeUnit.MILLISECONDS)
             .flatMapIterable { movies -> movies.results }
             .map{movie ->
                 movie.apply{
-                    posterUrl =  "${TMDB_IMAGE_API_POSTER_URL}${movie.poster_path}"
+                    posterUrl =  "${TMDB_IMAGE_API_POSTER_URL}${movie.posterPath}"
                 }
             }
             .toList()
@@ -30,9 +29,8 @@ class MovieRepository : MovieRepositoryInterface {
         return remoteMovieDataSource.getMovie(movieId)
             .doOnSuccess { movie ->
                 movie.apply {
-                    posterUrl = "${TMDB_IMAGE_API_POSTER_URL}${movie.poster_path}"
+                    posterUrl = "${TMDB_IMAGE_API_POSTER_URL}${movie.posterPath}"
                 }
             }
-            .delay(1000, TimeUnit.MILLISECONDS)
     }
 }
