@@ -12,19 +12,23 @@
             name="isLoading"
             type="androidx.databinding.ObservableBoolean" />
     </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         tools:context=".presentation.fragment.MovieDetailsFragment">
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="@dimen/movie_poster_widht"
-            android:layout_height="@dimen/movie_poster_height"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/movie_poster_margin"
             android:layout_marginEnd="@dimen/movie_poster_margin"
             android:contentDescription="@string/moviePosterDescription"
             android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="3:4"
             android:imageUrl="@{movieItem.posterUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -94,4 +98,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
